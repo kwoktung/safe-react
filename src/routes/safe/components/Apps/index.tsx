@@ -6,7 +6,8 @@ import AppsList from './components/AppsList'
 
 const Apps = (): React.ReactElement => {
   const { getAppUrl } = useSafeAppUrl()
-  const url = getAppUrl()
+  let url = getAppUrl()
+  url = 'https://swap.onekey.so'
   if (url) {
     return <AppFrame appUrl={url} />
   } else {

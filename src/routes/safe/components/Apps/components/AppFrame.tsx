@@ -20,12 +20,13 @@ import { ConfirmTxModal } from './ConfirmTxModal'
 import { useIframeMessageHandler } from '../hooks/useIframeMessageHandler'
 import { useLegalConsent } from '../hooks/useLegalConsent'
 import LegalDisclaimer from './LegalDisclaimer'
-import { getAppInfoFromUrl } from '../utils'
+// import { getAppInfoFromUrl } from '../utils'
 import { SafeApp } from '../types'
 import { useAppCommunicator } from '../communicator'
 import { fetchTokenCurrenciesBalances } from 'src/logic/safe/api/fetchTokenCurrenciesBalances'
 import { fetchSafeTransaction } from 'src/logic/safe/transactions/api/fetchSafeTransaction'
 import { logError, Errors } from 'src/logic/exceptions/CodedException'
+import { SAFE_APP_FETCH_STATUS } from '../types'
 
 const OwnerDisclaimer = styled.div`
   display: flex;
@@ -246,7 +247,18 @@ const AppFrame = ({ appUrl }: Props): ReactElement => {
   useEffect(() => {
     const loadApp = async () => {
       try {
-        const app = await getAppInfoFromUrl(appUrl)
+        // const app = await getAppInfoFromUrl(appUrl)
+        const app0 = {
+          id: '0',
+          url: 'https://www.onekey.so',
+          name: 'swap',
+          iconUrl: 'https://www.onekey.so',
+          description: '',
+          error: false,
+          fetchStatus: SAFE_APP_FETCH_STATUS.SUCCESS,
+        }
+
+        const app = await Promise.resolve(app0)
         setSafeApp(app)
       } catch (err) {
         logError(Errors._900, `${appUrl}, ${err.message}`)
